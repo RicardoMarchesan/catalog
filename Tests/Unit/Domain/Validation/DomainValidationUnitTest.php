@@ -15,7 +15,7 @@ class DomainValidationUnitTest extends TestCase
             DomainValidation::notNull($value);
             $this->fail();
         } catch (Throwable $th) {
-            $this->asse
+
         }
     }
 }
