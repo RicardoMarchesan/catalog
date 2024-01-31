@@ -27,7 +27,7 @@ class Category
         $this->isActive = true;
     }
 
-    public function desable(): void
+    public function disable(): void
     {
         $this->isActive = false;
     }

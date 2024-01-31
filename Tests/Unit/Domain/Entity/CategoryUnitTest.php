@@ -39,10 +39,13 @@ class CategoryUnitTest extends TestCase
             name: 'New Cat',
         );
         $this->assertTrue($category->isActive);
-        $category->desable();
+        $category->disable();
         $this->assertFalse($category->isActive);
     }
 
+    /**
+     * @throws EntityValidationException
+     */
     public function testUpdate()
     {
         $uuid = "uuid.value";
@@ -65,14 +68,26 @@ class CategoryUnitTest extends TestCase
     public function testExceptionName()
     {
         try {
-            $category = new Category(
+            new Category(
                 name: 'N',
                 description: 'New desc',
             );
             $this->fail();
-        }catch (Throwable $th){
+        } catch (Throwable $th) {
             $this->assertInstanceOf(EntityValidationException::class, $th);
         }
+    }
 
+    public function testExceptionDescription()
+    {
+        try {
+            new Category(
+                name: 'Name Cat',
+                description: random_bytes(99999),
+            );
+            $this->fail();
+        } catch (Throwable $th) {
+            $this->assertInstanceOf(EntityValidationException::class, $th);
+        }
     }
 }
