@@ -5,7 +5,7 @@ namespace Unit\UseCase\Category;
 use Core\Domain\Entity\Category;
 use Core\Domain\Repository\CategoryRepositoryInterface;
 use Core\UseCase\Category\CreateCategoryUseCase;
-use Core\UseCase\DTO\Category\{
+use Core\UseCase\DTO\Category\CreateCategory\{
     CategoryCreateInputDto,
     CategoryCreateOutputDto
 };
@@ -47,7 +47,7 @@ class CreateCategoryUseCaseUnitTest extends TestCase
         $this->spy = Mockery::spy(stdClass::class, CategoryRepositoryInterface::class);
         $this->spy->shouldReceive('insert')->andReturn($this->mockEntity);
         $useCase = new CreateCategoryUseCase($this->spy);
-        $responseUseCase = $useCase->execute($this->mockInputDto);
+        $useCase->execute($this->mockInputDto);
         $this->spy->shouldHaveReceived('insert');
 
         Mockery::close();
