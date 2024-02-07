@@ -4,21 +4,28 @@ namespace Core\Domain\Entity;
 use Core\Domain\Entity\Traits\MethodsMagicsTrait;
 use Core\Domain\Exception\EntityValidationException;
 use Core\Domain\Validation\DomainValidation;
+use Core\Domain\ValueObject\Uuid;
+use Exception;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use DateTime;
 
 class Category
 {
     use MethodsMagicsTrait;
 
     /**
-     * @throws EntityValidationException
+     * @throws Exception
      */
     public function __construct(
-        protected string $id = '',
+        protected Uuid|string $id = '',
         protected string $name = '',
         protected string $description = '',
         protected bool $isActive = true,
-    )
-    {
+        protected DateTime|string $createdAt = '',
+    ) {
+        $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
+        $this->createdAt = $this->createdAt ? new DateTime($this->createdAt) : new DateTime();
+
         $this->validate();
     }
 
@@ -32,24 +39,18 @@ class Category
         $this->isActive = false;
     }
 
-    /**
-     * @throws EntityValidationException
-     */
-    public function update(string $name, string $description = ''): void
+    public function update(string $name, string $description = '')
     {
         $this->name = $name;
         $this->description = $description;
+
         $this->validate();
     }
 
-
-    /**
-     * @throws EntityValidationException
-     */
-    public function validate(): void
+    protected function validate()
     {
-        DomainValidation::strMaxLength($this->name );
-        DomainValidation::strMinLength($this->name );
+        DomainValidation::strMaxLength($this->name);
+        DomainValidation::strMinLength($this->name);
         DomainValidation::strCanNullAndMaxLength($this->description);
     }
 }
