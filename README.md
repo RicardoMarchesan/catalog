@@ -1,15 +1,15 @@
 
-# Laravel 9.x - Quick Start (Laravel 9.x + Docker)
+# Quick Start project with Docker
 
 ## Rodar o Laravel
 
 Clone Repositório
 ```sh
-git clone https://github.com/devfullcycle/FC3-admin-catalogo-de-videos-php.git laravel9
+git clone https://github.com/RicardoMarchesan/catalog.git infra
 ```
 
 ```sh
-cd laravel9/
+cd infra/
 ```
 
 Remova o versionamento (opcional)
@@ -26,13 +26,13 @@ cp .env.example .env
 
 Atualize as variáveis de ambiente do arquivo .env
 ```dosini
-APP_NAME="Full Cycle"
+APP_NAME="Laravel"
 APP_URL=http://localhost:8000
 
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=code_micro_videos
+DB_DATABASE=db_videos
 DB_USERNAME=root
 DB_PASSWORD=root
 
@@ -56,6 +56,14 @@ Acesse o container app
 ```sh
 docker-compose exec app bash
 ```
+
+Se estiver utilizando PhpStorm pode utilizar o services localizado no canto inferior esquerdo:
+1. Clique no menu Services
+2. Clique em Add Service
+3. Clique em Docker
+4. Clique em Connection From Contexts
+
+A partir disso você terá acesso a todos os containers, logs, dash e terminal.
 
 
 Instalar as dependências do projeto
